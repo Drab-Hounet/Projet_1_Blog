@@ -1,4 +1,5 @@
 com\blog\db\Users.class
 com\blog\api\GetAllUsers.class
 com\blog\db\Singleton.class
+com\blog\admin\EditPostBlog.class
 com\blog\db\DAO.class

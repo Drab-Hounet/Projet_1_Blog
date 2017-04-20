@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>ta gueule adri!</h1>
+        <h1> adri!</h1>
     </body>
 </html>
