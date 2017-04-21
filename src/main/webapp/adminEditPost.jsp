@@ -8,7 +8,7 @@
     <body>
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="navbar-header">
-            <a class="navbar-brand" href="#">Blog Amadeus Papam</a>
+            <a class="navbar-brand" href="#">Blog Codeus Papam</a>
             </div>
         </nav>
 
