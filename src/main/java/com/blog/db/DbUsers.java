@@ -11,8 +11,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class DbUsers extends DAO{
 
@@ -24,7 +24,7 @@ public class DbUsers extends DAO{
     public String getAll() throws ClassNotFoundException, SQLException{
         Statement statement = null;
         String selectTableSQL = "SELECT * from users";
-        Hashtable<Integer, Hashtable<String,String>> list = new Hashtable<>();
+        HashMap<Integer, HashMap<String,String>> list = new HashMap<>();
         
         try {
             statement = Singleton.getInstance().createStatement();
@@ -33,7 +33,7 @@ public class DbUsers extends DAO{
             ResultSet rs = statement.executeQuery(selectTableSQL);
 
             while (rs.next()) {
-                Hashtable<String,String> temp = new Hashtable<>();
+                HashMap<String,String> temp = new HashMap<>();
                 
                 String pseudo = rs.getString("pseudo");
                 temp.put("pseudo", pseudo);
@@ -59,4 +59,12 @@ public class DbUsers extends DAO{
         String json = gson.toJson(list);
         return json;
     }
+
+
+    @Override
+    public boolean create(Map element) {
+        return true;
+    }
+
+
 }
