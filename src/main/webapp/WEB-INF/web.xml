@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>API</servlet-name>
+        <servlet-name>apiGetAllUsers</servlet-name>
         <servlet-class>com.blog.api.GetAllUsers</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>API</servlet-name>
-        <url-pattern>/api</url-pattern>
+        <servlet-name>apiGetAllUsers</servlet-name>
+        <url-pattern>/api/getallusers</url-pattern>
+    </servlet-mapping>
+    <jsp-config>
+        <jsp-property-group>
+            <url-pattern>*.jsp</url-pattern>
+            <include-prelude>./preludeJsp.jsp</include-prelude>
+        </jsp-property-group>
+    </jsp-config>
+    
+    <servlet>
+        <servlet-name>HomeAdmin</servlet-name>
+        <servlet-class>com.blog.admin.HomeAdmin</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HomeAdmin</servlet-name>
+        <url-pattern>/admin/accueil</url-pattern>
     </servlet-mapping>
     
     <servlet>
-        <servlet-name>EDIT</servlet-name>
+        <servlet-name>editAdmin</servlet-name>
         <servlet-class>com.blog.admin.EditPostBlog</servlet-class>
             <multipart-config>
                 <location>E:\_TRAVAIL\JAVA\_JEE\test</location>
@@ -20,13 +35,8 @@
             </multipart-config>
     </servlet>
     <servlet-mapping>
-        <servlet-name>EDIT</servlet-name>
-        <url-pattern>/admin</url-pattern>
+        <servlet-name>editAdmin</servlet-name>
+        <url-pattern>/admin/edit</url-pattern>
     </servlet-mapping>
-    <jsp-config>
-        <jsp-property-group>
-            <url-pattern>*.jsp</url-pattern>
-            <include-prelude>/WEB-INF/preludeJsp.jsp</include-prelude>
-        </jsp-property-group>
-    </jsp-config>
+
 </web-app>

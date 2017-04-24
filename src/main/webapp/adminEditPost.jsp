@@ -8,12 +8,12 @@
     <body>
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="navbar-header">
-            <a class="navbar-brand" href="#">Blog Codeus Papam</a>
+            <a class="navbar-brand" href="/blogPostv2/admin/accueil">Blog Codeus Papam</a>
             </div>
         </nav>
 
 
-        <form method="post" action="admin" class="form-horizontal">
+        <form method="post" action="edit" class="form-horizontal">
             <fieldset>
                 <h1 class="col-md-10 col-md-offset-1    ">Création du billet</h1>
                 <div class="form-group">
