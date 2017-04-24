@@ -8,13 +8,24 @@
     <body>
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="navbar-header">
-            <a class="navbar-brand" href="/blogPostv2/admin/accueil">Blog Codeus Papam</a>
+                <a class="navbar-brand" href="<c:url value="/admin/accueil"/>">Blog Codeus Papam</a>
             </div>
         </nav>
 
         <form method="post" action="edit" class="form-horizontal">
             <fieldset>
-                <h1 class="col-md-10 col-md-offset-1    ">Création du billet</h1>
+                <div class="col-md-4 col-md-offset-1">
+                    <h1>Création du billet</h1>
+                </div>
+                <div class="col-md-2 col-md-offset-5 <c:out value="${stateConnected}" default = " hidden"/>">
+                    <div class="alert alert-success">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+                        <strong>Connecté!</strong>
+                    </div>
+                </div>
+                    
+                
+
                 <div class="form-group">
                     <div class="col-md-4 col-md-offset-4">
                         <div class="input-group">

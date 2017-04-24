@@ -5,9 +5,11 @@
  */
 package com.blog.beans;
 
+import com.blog.attributes.User;
 import com.blog.db.DbUsers;
 import com.blog.db.Singleton;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -27,10 +29,12 @@ public class CheckAuthentificateAdmin {
     public boolean IsItAdmin() throws ClassNotFoundException, SQLException{       
         try { 
             DbUsers getUsers = new DbUsers(Singleton.getInstance());
-            HashMap<Integer, HashMap<String,String>> listAllUsers = getUsers.getInDb();
+            ArrayList<User> listAllUsers = getUsers.getAllUsers();
             
-            for (HashMap<String, String> listUsers : listAllUsers.values()){
-               
+            for (User user : listAllUsers){
+               if((((user.email.equals(this.login)) || (user.name.equals(this.login)))) && (user.password.equals(this.password))){
+                   return true;
+               }
             }  
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);

@@ -9,14 +9,14 @@ package com.blog.attributes;
  *
  * @author jerome.lombard
  */
-public class Users {
+public class User {
     public String name;
     public String password;
     public String email;
     public String tagAdmin;
     public String createdAt;
     
-    public Users(String name, String password, String email, String tagAdmin, String createdAt){
+    public User(String name, String password, String email, String tagAdmin, String createdAt){
         this.name = name;
         this.password = password;
         this.email = email;

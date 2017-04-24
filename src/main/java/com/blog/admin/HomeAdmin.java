@@ -81,17 +81,14 @@ public class HomeAdmin extends HttpServlet {
         }
         
         if (AuthentificateSuccess){
-            String displayMessageSucces = "";
-            
+            String stateConnected = "";
+            String displayMessageSucces = "hidden";
             String displayMessageFail = "hidden";
+            request.setAttribute("stateConnected", stateConnected);
             request.setAttribute("displayAlertSuccess", displayMessageSucces);
             request.setAttribute("displayAlertFail", displayMessageFail);
             this.getServletContext().getRequestDispatcher("/adminEditPost.jsp").forward(request, response); 
         }else{
-            String displayMessageSucces = "hidden";
-            String displayMessageFail = "";
-            request.setAttribute("displayAlertSuccess", displayMessageSucces);
-            request.setAttribute("displayAlertFail", displayMessageFail);
             this.getServletContext().getRequestDispatcher("/adminHome.jsp").forward(request, response); 
         }
         

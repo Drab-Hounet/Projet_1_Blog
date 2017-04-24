@@ -9,7 +9,7 @@
     <body>
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="navbar-header">
-            <a class="navbar-brand" href="/blogPostv2/admin/accueil">Blog Codeus Papam</a>
+                <a class="navbar-brand" href="<c:url value="/admin/accueil"/>">Blog Codeus Papam</a>
             </div>
         </nav>
         

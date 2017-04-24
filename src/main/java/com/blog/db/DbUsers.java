@@ -5,12 +5,14 @@
  */
 package com.blog.db;
 
+import com.blog.attributes.User;
 import com.blog.db.Singleton;
 import com.google.gson.Gson;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,33 +24,9 @@ public class DbUsers extends DAO{
     
     @Override
     public String getAllJson() throws ClassNotFoundException, SQLException{
-        HashMap<Integer, HashMap<String,String>> list = this.getInDb();
-        
-        
-        
-        Gson gson = new Gson();
-        String json = gson.toJson(list);
-        return json;
-    }
-
-
-    @Override
-    public boolean create(Map element) {
-        return true;
-    }
-        
-    public HashMap<Integer, HashMap<String,String>> getInDb() throws ClassNotFoundException, SQLException{
-        Statement statement = null;
-        String selectTableSQL = "SELECT * from users";
         HashMap<Integer, HashMap<String,String>> list = new HashMap<>();
-        
-        try {
-            statement = Singleton.getInstance().createStatement();
-            //System.out.println(selectTableSQL);
-            // execute select SQL stetement
-            ResultSet rs = statement.executeQuery(selectTableSQL);
-
-            while (rs.next()) {
+        ResultSet rs = this.getResultSet();
+        while (rs.next()) {
                 HashMap<String,String> temp = new HashMap<>();
                 
                 String pseudo = rs.getString("pseudo");
@@ -63,14 +41,46 @@ public class DbUsers extends DAO{
                 temp.put("password", password); 
                 list.put(rs.getInt("id"),temp);
             }
-            //System.out.println(list);
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        return json;
+    }
+    
+    public ArrayList<User> getAllUsers() throws ClassNotFoundException, SQLException{
+        ArrayList listUser = new ArrayList();
+        ResultSet rs = this.getResultSet();
+        while (rs.next()) {
+            String pseudo = rs.getString("pseudo");
+            String email = rs.getString("email");
+            String password = rs.getString("password");
+            String tagAdmin = rs.getString("tag_admin");
+            String createdAt = rs.getString("created_at");
+            User user = new User(pseudo, password, email, tagAdmin, createdAt);
+            listUser.add(user);
+        }
+        return listUser;
+    }
+
+
+    @Override
+    public boolean create(Map element) {
+        return true;
+    }
+        
+    public ResultSet getResultSet() throws ClassNotFoundException, SQLException{
+        Statement statement = null;
+        String selectTableSQL = "SELECT * from users";
+        
+        ResultSet rs = null;
+        try {
+            statement = Singleton.getInstance().createStatement();
+            //System.out.println(selectTableSQL);
+            // execute select SQL stetement
+            rs = statement.executeQuery(selectTableSQL);
+
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        } finally {
-            if (statement != null) {
-                statement.close();
-            }
-        }
-        return list;
+        } 
+        return rs;
     }
 }
