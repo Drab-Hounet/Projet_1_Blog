@@ -1,2 +1,5 @@
 /target/
 /angular2/node_modules/
+/target/*
+target/
+tartget/*
