@@ -6,12 +6,12 @@
 package com.blog.admin;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.blog.beans.SaveBlogPosts;
 
 /**
  *
@@ -31,7 +31,7 @@ public class EditPostBlog extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("text/html;charset=UTF-8");        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -46,6 +46,11 @@ public class EditPostBlog extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String displayMessageSucces = "hidden";
+        String displayMessageFail = "hidden";
+        request.setAttribute("displayAlertSuccess", displayMessageSucces);
+        request.setAttribute("displayAlertFail", displayMessageFail);
+
         this.getServletContext().getRequestDispatcher("/adminEditPost.jsp").forward(request, response); 
     }
 
@@ -60,7 +65,39 @@ public class EditPostBlog extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String displayMessageSucces = "hidden";
+        String displayMessageFail = "hidden";
+
+        if( request.getParameter("save") != null){
+            SaveBlogPosts saveBlogPosts = new SaveBlogPosts(request.getParameter("title"), request.getParameter("content"), request.getParameter("pictureFile"));
+
+            boolean successSaving = saveBlogPosts.createPost();
+            
+            if (successSaving){
+                displayMessageSucces = "";
+                displayMessageFail = "hidden";
+                request.setAttribute("displayAlertSuccess", displayMessageSucces);
+                request.setAttribute("displayAlertFail", displayMessageFail);
+            }else{
+                displayMessageSucces = "hidden";
+                displayMessageFail = "";
+                request.setAttribute("displayAlertSuccess", displayMessageSucces);
+                request.setAttribute("displayAlertFail", displayMessageFail);
+            }
+            this.getServletContext().getRequestDispatcher("/adminEditPost.jsp").forward(request, response); 
+        }
+        if( request.getParameter("cancel") != null){
+            request.setAttribute("displayAlertSuccess", displayMessageSucces);
+            request.setAttribute("displayAlertFail", displayMessageFail);
+            this.getServletContext().getRequestDispatcher("/adminEditPost.jsp").forward(request, response); 
+        }
+        
+        
+        
+        //String title = request.getParameter("save");
+        //PrintWriter out = response.getWriter();
+        //out.print(title);
+        
     }
 
     /**

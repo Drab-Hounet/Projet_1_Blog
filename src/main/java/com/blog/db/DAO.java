@@ -5,12 +5,10 @@
  */
 package com.blog.db;
 
-import com.google.gson.Gson;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Hashtable;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -24,5 +22,6 @@ public abstract class DAO<T> {
     }
     
     public abstract String getAll() throws SQLException, ClassNotFoundException;
+    public abstract boolean create(Map<String, String> element);
 
 }

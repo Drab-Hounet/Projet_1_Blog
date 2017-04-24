@@ -1,3 +1,11 @@
+<<<<<<< HEAD
 target/*
 
 
+=======
+target/
+/target/
+/angular2/node_modules/
+target/*
+/target/*
+>>>>>>> 4d9dcb82e272b6e04029f8670cb0948707aace2d
