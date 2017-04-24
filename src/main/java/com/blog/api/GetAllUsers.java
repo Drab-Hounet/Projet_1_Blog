@@ -5,7 +5,9 @@
  */
 package com.blog.api;
 
-import com.blog.db.Users;
+import com.blog.db.DbBlogPosts;
+import com.blog.db.Singleton;
+import com.blog.db.DbUsers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -14,7 +16,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,20 +28,25 @@ import java.util.ArrayList;
  */
 @WebServlet(name = "ApiTest", urlPatterns = {"/ApiTest"})
 public class GetAllUsers extends HttpServlet {
+    
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //this.getServletContext().getRequestDispatcher("/bobo.jsp").forward(request, response);
-        //String[] days = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
-        ArrayList<String> days = new ArrayList();
+        String listUsers = null;
+        DbUsers user = null;
         try {
-            days = Users.selectRecordsFromDbUserTable();
-        } catch (Exception ex) {
+            user = new DbUsers(Singleton.getInstance());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GetAllUsers.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            listUsers = user.getAll();
+        } catch (SQLException | ClassNotFoundException ex) {
             System.out.println(ex);
         }
         // Create a new instance of Gson
-        Gson gson = new Gson();
-        String daysJson = gson.toJson(days);
+
         PrintWriter out = response.getWriter();
-        out.print(daysJson);
+        out.print(listUsers);
     }
 
 

@@ -5,7 +5,12 @@
  */
 package com.blog.db;
 
+import com.google.gson.Gson;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Hashtable;
 
 /**
  *
@@ -18,6 +23,6 @@ public abstract class DAO<T> {
         this.connection = connection;
     }
     
-    public abstract T find();
-   
+    public abstract String getAll() throws SQLException, ClassNotFoundException;
+
 }
