@@ -38,7 +38,7 @@ function fakeBackendFactory(backend, options, realBackend) {
                 return;
             }
             // get users
-            if (connection.request.url.endsWith('/api/users') && connection.request.method === http_1.RequestMethod.Get) {
+            if (connection.request.url.endsWith('/api/getallusers') && connection.request.method === http_1.RequestMethod.Get) {
                 // check for fake auth token in header and return users if valid, this security is implemented server side in a real application
                 if (connection.request.headers.get('Authorization') === 'Bearer fake-jwt-token') {
                     connection.mockRespond(new http_1.Response(new http_1.ResponseOptions({ status: 200, body: users })));
@@ -68,7 +68,7 @@ function fakeBackendFactory(backend, options, realBackend) {
                 return;
             }
             // create user
-            if (connection.request.url.endsWith('/api/users') && connection.request.method === http_1.RequestMethod.Post) {
+            if (connection.request.url.endsWith('/api/createusers') && connection.request.method === http_1.RequestMethod.Post) {
                 // get new user object from post body
                 var newUser_1 = JSON.parse(connection.request.getBody());
                 // validation

@@ -8,7 +8,7 @@ export class UserService {
     constructor(private http: Http) { }
 
     getAll() {
-        return this.http.get('/api/users', this.jwt()).map((response: Response) => response.json());
+        return this.http.get('http://localhost:8080/Projet_1_Blog/api/getallusers', this.jwt()).map((response: Response) => response.json());
     }
 
     getById(id: number) {

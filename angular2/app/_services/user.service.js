@@ -16,7 +16,7 @@ var UserService = (function () {
         this.http = http;
     }
     UserService.prototype.getAll = function () {
-        return this.http.get('/api/users', this.jwt()).map(function (response) { return response.json(); });
+        return this.http.get('http://localhost:8080/Projet_1_Blog/api/getallusers', this.jwt()).map(function (response) { return response.json(); });
     };
     UserService.prototype.getById = function (id) {
         return this.http.get('/api/users/' + id, this.jwt()).map(function (response) { return response.json(); });
