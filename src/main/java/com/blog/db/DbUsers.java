@@ -21,14 +21,30 @@ public class DbUsers extends DAO{
     }
     
     @Override
-    public String getAll() throws ClassNotFoundException, SQLException{
+    public String getAllJson() throws ClassNotFoundException, SQLException{
+        HashMap<Integer, HashMap<String,String>> list = this.getInDb();
+        
+        
+        
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
+        return json;
+    }
+
+
+    @Override
+    public boolean create(Map element) {
+        return true;
+    }
+        
+    public HashMap<Integer, HashMap<String,String>> getInDb() throws ClassNotFoundException, SQLException{
         Statement statement = null;
         String selectTableSQL = "SELECT * from users";
         HashMap<Integer, HashMap<String,String>> list = new HashMap<>();
         
         try {
             statement = Singleton.getInstance().createStatement();
-            System.out.println(selectTableSQL);
+            //System.out.println(selectTableSQL);
             // execute select SQL stetement
             ResultSet rs = statement.executeQuery(selectTableSQL);
 
@@ -47,7 +63,7 @@ public class DbUsers extends DAO{
                 temp.put("password", password); 
                 list.put(rs.getInt("id"),temp);
             }
-            System.out.println(list);
+            //System.out.println(list);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -55,16 +71,6 @@ public class DbUsers extends DAO{
                 statement.close();
             }
         }
-        Gson gson = new Gson();
-        String json = gson.toJson(list);
-        return json;
+        return list;
     }
-
-
-    @Override
-    public boolean create(Map element) {
-        return true;
-    }
-
-
 }

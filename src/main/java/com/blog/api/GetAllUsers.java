@@ -37,7 +37,7 @@ public class GetAllUsers extends HttpServlet {
             Logger.getLogger(GetAllUsers.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            listUsers = user.getAll();
+            listUsers = user.getAllJson();
         } catch (SQLException | ClassNotFoundException ex) {
             System.out.println(ex);
         }

@@ -13,7 +13,7 @@
             </div>
         </nav>
         
-        <form class="form-horizontal">
+        <form method="post" class="form-horizontal">
             <fieldset>
                 
             <h1 class="col-md-10 col-md-offset-1">Login</h1>
@@ -23,7 +23,7 @@
               <div class="col-md-4 col-md-offset-4">
                 <div class="input-group">
                   <span class="input-group-addon">Pseudo / Email</span>
-                  <input id="prependedtext" name="prependedtext" class="form-control" placeholder="pseudo ou mail" type="text">
+                  <input id="prependedtext" name="login" class="form-control" placeholder="pseudo ou mail" type="text">
                 </div>
                 <p class="help-block"></p>
               </div>
@@ -34,7 +34,7 @@
                 <div class="col-md-4 col-md-offset-4">
                     <div class="input-group">
                         <span class="input-group-addon">Mot de passe</span>
-                        <input id="passwordinput" name="passwordinput" type="password" placeholder="mot de passe" class="form-control input-md">
+                        <input id="passwordinput" name="password" type="password" placeholder="mot de passe" class="form-control input-md">
                     </div>
                     <span class="help-block"></span>
                 </div>

@@ -12,7 +12,6 @@
             </div>
         </nav>
 
-
         <form method="post" action="edit" class="form-horizontal">
             <fieldset>
                 <h1 class="col-md-10 col-md-offset-1    ">Création du billet</h1>
