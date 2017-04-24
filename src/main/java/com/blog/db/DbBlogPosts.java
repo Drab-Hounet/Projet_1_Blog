@@ -7,10 +7,14 @@ package com.blog.db;
 
 import com.google.gson.Gson;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Hashtable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -32,7 +36,7 @@ public class DbBlogPosts extends DAO {
     public String getAll() throws SQLException, ClassNotFoundException {
         Statement statement = null;
         String selectTableSQL = "SELECT * from blogposts";
-        Hashtable<Integer, Hashtable<String,String>> list = new Hashtable<>();
+        HashMap<Integer, HashMap<String,String>> list = new HashMap<>();
         
         try {
             statement = Singleton.getInstance().createStatement();
@@ -41,7 +45,7 @@ public class DbBlogPosts extends DAO {
             ResultSet rs = statement.executeQuery(selectTableSQL);
 
             while (rs.next()) {
-                Hashtable<String,String> temp = new Hashtable<>();
+                HashMap<String,String> temp = new HashMap<>();
 
                 String title = rs.getString("title");
                 temp.put("titre", title);
@@ -65,7 +69,31 @@ public class DbBlogPosts extends DAO {
         }
         Gson gson = new Gson();
         String json = gson.toJson(list);
-        return json;
-        
+        return json;       
     }
+
+    @Override
+    public boolean create(Map element) { 
+        Date dt = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String currentTime = sdf.format(dt);
+        String query =   "INSERT INTO blogposts (title, content, picture, created_at, updated_at, user_id) VALUES(?, ?, ?, ?, ?, ?)";
+        
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, (String) element.get("title"));
+            preparedStatement.setString(2, (String) element.get("content"));
+            preparedStatement.setString(3, (String) element.get("pictureFile"));
+            preparedStatement.setString(4, currentTime);
+            preparedStatement.setString(5, currentTime);
+            preparedStatement.setString(6, "1");            
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException ex) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }
