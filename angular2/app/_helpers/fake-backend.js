@@ -15,7 +15,7 @@ function fakeBackendFactory(backend, options, realBackend) {
                 var params_1 = JSON.parse(connection.request.getBody());
                 // find if any user matches login credentials
                 var filteredUsers = users.filter(function (user) {
-                    return user.username === params_1.username && user.password === params_1.password;
+                    return user.pseudo === params_1.pseudo && user.password === params_1.password;
                 });
                 if (filteredUsers.length) {
                     // if login details are valid return 200 OK with user details and fake jwt token
@@ -24,16 +24,16 @@ function fakeBackendFactory(backend, options, realBackend) {
                         status: 200,
                         body: {
                             id: user.id,
-                            username: user.username,
-                            firstName: user.firstName,
-                            lastName: user.lastName,
+                            pseudo: user.pseudo,
+                            tagAdmin: user.tagAdmin,
+                            email: user.email,
                             token: 'fake-jwt-token'
                         }
                     })));
                 }
                 else {
                     // else return 400 bad request
-                    connection.mockError(new Error('Username or password is incorrect'));
+                    connection.mockError(new Error('Pseudo or password is incorrect'));
                 }
                 return;
             }
@@ -72,9 +72,9 @@ function fakeBackendFactory(backend, options, realBackend) {
                 // get new user object from post body
                 var newUser_1 = JSON.parse(connection.request.getBody());
                 // validation
-                var duplicateUser = users.filter(function (user) { return user.username === newUser_1.username; }).length;
+                var duplicateUser = users.filter(function (user) { return user.pseudo === newUser_1.pseudo; }).length;
                 if (duplicateUser) {
-                    return connection.mockError(new Error('Username "' + newUser_1.username + '" is already taken'));
+                    return connection.mockError(new Error('Pseudo "' + newUser_1.pseudo + '" is already taken'));
                 }
                 // save new user
                 newUser_1.id = users.length + 1;

@@ -17,7 +17,7 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
 
                 // find if any user matches login credentials
                 let filteredUsers = users.filter(user => {
-                    return user.username === params.username && user.password === params.password;
+                    return user.pseudo === params.pseudo && user.password === params.password;
                 });
 
                 if (filteredUsers.length) {
@@ -27,15 +27,15 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
                         status: 200,
                         body: {
                             id: user.id,
-                            username: user.username,
-                            firstName: user.firstName,
-                            lastName: user.lastName,
+                            pseudo: user.pseudo,
+                            tagAdmin: user.tagAdmin,
+                            email: user.email,
                             token: 'fake-jwt-token'
                         }
                     })));
                 } else {
                     // else return 400 bad request
-                    connection.mockError(new Error('Username or password is incorrect'));
+                    connection.mockError(new Error('Pseudo or password is incorrect'));
                 }
 
                 return;
@@ -80,9 +80,9 @@ export function fakeBackendFactory(backend: MockBackend, options: BaseRequestOpt
                 let newUser = JSON.parse(connection.request.getBody());
 
                 // validation
-                let duplicateUser = users.filter(user => { return user.username === newUser.username; }).length;
+                let duplicateUser = users.filter(user => { return user.pseudo === newUser.pseudo; }).length;
                 if (duplicateUser) {
-                    return connection.mockError(new Error('Username "' + newUser.username + '" is already taken'));
+                    return connection.mockError(new Error('Pseudo "' + newUser.pseudo + '" is already taken'));
                 }
 
                 // save new user

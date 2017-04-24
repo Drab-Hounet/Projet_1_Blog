@@ -1,7 +1,8 @@
 ﻿export class User {
     id: number;
-    username: string;
+    pseudo: string;
+    tagAdmin: string;
+    email: string;
     password: string;
-    firstName: string;
-    lastName: string;
-}
+    createdAt: string;
+    }
