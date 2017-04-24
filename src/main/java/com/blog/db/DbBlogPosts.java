@@ -10,15 +10,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import static java.time.Instant.now;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -81,7 +77,6 @@ public class DbBlogPosts extends DAO {
         Date dt = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String currentTime = sdf.format(dt);
-       
         String query =   "INSERT INTO blogposts (title, content, picture, created_at, updated_at, user_id) VALUES(?, ?, ?, ?, ?, ?)";
         
         try {
@@ -90,7 +85,7 @@ public class DbBlogPosts extends DAO {
             preparedStatement.setString(2, (String) element.get("content"));
             preparedStatement.setString(3, (String) element.get("pictureFile"));
             preparedStatement.setString(4, currentTime);
-            preparedStatement.setString(5, currentTime);;
+            preparedStatement.setString(5, currentTime);
             preparedStatement.setString(6, "1");            
             preparedStatement.executeUpdate();
 
