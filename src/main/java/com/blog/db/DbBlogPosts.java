@@ -12,9 +12,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.sql.Statement;
+<<<<<<< HEAD
 import java.text.SimpleDateFormat;
 import static java.time.Instant.now;
 import java.util.Date;
+=======
+>>>>>>> 1bf20d2f1e1d0db2159b212ec87c5bb7ff8b3783
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -81,7 +84,6 @@ public class DbBlogPosts extends DAO {
         Date dt = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String currentTime = sdf.format(dt);
-       
         String query =   "INSERT INTO blogposts (title, content, picture, created_at, updated_at, user_id) VALUES(?, ?, ?, ?, ?, ?)";
         
         try {
@@ -90,7 +92,7 @@ public class DbBlogPosts extends DAO {
             preparedStatement.setString(2, (String) element.get("content"));
             preparedStatement.setString(3, (String) element.get("pictureFile"));
             preparedStatement.setString(4, currentTime);
-            preparedStatement.setString(5, currentTime);;
+            preparedStatement.setString(5, currentTime);
             preparedStatement.setString(6, "1");            
             preparedStatement.executeUpdate();
 
