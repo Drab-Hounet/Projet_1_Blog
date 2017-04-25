@@ -2,6 +2,7 @@
     <h2>Login</h2>
     <form role="form">
         <div ng-control-group="credentials">
+            <div class="form-group text-center">
         <label for="pseudo">Pseudo</label>
         <input
           type="text"
@@ -9,6 +10,8 @@
           id="pseudo"
           ng-control="pseudo"
           required>
+            </div>
+            <div class="form-group text-center">
         <label for="password">Password</label>
         <input
           type="password"
@@ -16,6 +19,7 @@
           id="password"
           ng-control="password"
           required>
+            </div>
       </div>
         <div class="form-group text-center">
             <button (click)="authenticate(pseudo, password)" class="btn btn-primary">Login</button>

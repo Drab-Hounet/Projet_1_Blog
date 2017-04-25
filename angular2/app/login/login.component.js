@@ -29,27 +29,17 @@ var LoginComponent = (function () {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     };
     LoginComponent.prototype.authenticate = function (pseudo, password) {
-        var _this = this;
-        var creds = JSON.stringify({ pseudo: pseudo.value, password: password.value });
+        var data = JSON.stringify({ pseudo: pseudo.value, password: password.value });
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
-        this.http.post('http://localhost:8080/Projet_1_Blog/api/user', creds, {
-            headers: headers
-        })
-            .subscribe(function (data) {
-            _this.saveJwt(data.json());
-            pseudo = null;
-            password = null;
-        }, function (err) { return _this.logError(err.json().message); }, function () { return console.log('Authentication Complete'); });
-        console.log(this.data);
-    };
-    LoginComponent.prototype.logError = function (err) {
-        console.error('There was an error: ' + err);
-    };
-    LoginComponent.prototype.saveJwt = function (jwt) {
-        if (jwt) {
-            localStorage.setItem('id_token', jwt);
-        }
+        headers.append('Access-Control-Allow-Methods', 'POST');
+        headers.append('Access-Control-Allow-Origin', '*');
+        var options = new http_1.RequestOptions({ headers: headers, withCredentials: true });
+        console.log(data);
+        this.http.post('http://localhost:8080/Projet_1_Blog/api/user', data, options).map(function (res) { return res.json(); })
+            .subscribe(function (response) {
+            console.log(response);
+        });
     };
     return LoginComponent;
 }());

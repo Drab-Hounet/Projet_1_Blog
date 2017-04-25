@@ -14,7 +14,9 @@ export class LoginComponent implements OnInit {
     model: any = {};
     loading = false;
     returnUrl: string;
-    data: string;
+    pseudo: string;
+    password: string;
+
 
     constructor(
         private route: ActivatedRoute,
@@ -30,30 +32,16 @@ export class LoginComponent implements OnInit {
 
     authenticate(pseudo, password) {
 
-    let creds = JSON.stringify({ pseudo: pseudo.value, password: password.value });
+    let data = JSON.stringify({ pseudo: pseudo.value, password: password.value });
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
-
-    this.http.post('http://localhost:8080/Projet_1_Blog/api/user', creds, {
-      headers: headers
-      })
-      .subscribe(
-        data => {
-          this.saveJwt(data.json());
-          pseudo = null;
-          password = null;
-        },
-        err => this.logError(err.json().message),
-        () => console.log('Authentication Complete')
-      );
-      console.log(this.data);
-}
-  logError(err:string) {
-    console.error('There was an error: ' + err);
-}
-  saveJwt(jwt:string) {
-    if(jwt) {
-      localStorage.setItem('id_token', jwt)
+    headers.append('Access-Control-Allow-Methods', 'POST');
+    headers.append('Access-Control-Allow-Origin', '*');
+    let options = new RequestOptions({ headers: headers, withCredentials: true });
+    console.log(data);
+   this.http.post('http://localhost:8080/Projet_1_Blog/api/user', data , options).map(res => res.json())
+    .subscribe(response => {
+        console.log(response);
+    });
     }
-}
 }
