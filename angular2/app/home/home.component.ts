@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
         this.loadAllUsers();
     }
 
-    deleteUser(id: number) {
+    deleteUser(id: string) {
         this.userService.removeUser(id).subscribe(() => { this.loadAllUsers() });
     }
 

@@ -27,7 +27,7 @@ var UserService = (function () {
     // Fetch all existing users
     UserService.prototype.getUsers = function () {
         // ...using get request
-        return this.http.get(this.userUrl)
+        return this.http.get(this.usersUrl)
             .map(function (res) { return res.json(); })
             .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); });
         //console.log(response);       

@@ -1,7 +1,6 @@
 ﻿import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { User }           from '../_models/user';
 import { Injectable }     from '@angular/core';
-import {Pipe, PipeTransform} from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 
 // Import RxJs required methods
@@ -20,13 +19,14 @@ export class UserService {
      // Fetch all existing users
      getUsers() : Observable<User[]>{
          // ...using get request
-         return this.http.get(this.userUrl)
+         return this.http.get(this.usersUrl)
                         // ...and calling .json() on the response to return data
                          .map((res:Response) => res.json())
                          //...errors if any
                          .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
                          //console.log(response);       
      }
+
      // Add a new user
     addUser (body: Object): Observable<User[]> {
         let bodyString = JSON.stringify(body); // Stringify payload
