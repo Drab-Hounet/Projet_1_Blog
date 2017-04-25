@@ -1,12 +1,12 @@
 ﻿<div class="col-md-6 col-md-offset-3">
-    <h1>Hi {{currentUser.pseudo}}!</h1>
+    <h1>Hi!</h1>
     <p>You've been logged</p>
     <h3>All registered users:</h3>
     <ul>
-        <li *ngFor="let user of users">
-            {{user.pseudo}} ({{user.pseudo}} {{user.email}})
+        <!--<li *ngFor="let user of users">
+            ({{user.id}} {{user.email}} {{user.password}})
             - <a (click)="deleteUser(user.id)">Delete</a>
-        </li>
+        </li>-->{{users}}
     </ul>
     <p><a [routerLink]="['/login']">Logout</a></p>
 </div>

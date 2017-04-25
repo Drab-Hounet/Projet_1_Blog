@@ -9,35 +9,52 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var core_1 = require("@angular/core");
 var http_1 = require("@angular/http");
+var core_1 = require("@angular/core");
+var Rx_1 = require("rxjs/Rx");
+// Import RxJs required methods
+require("rxjs/add/operator/map");
+require("rxjs/add/operator/catch");
 var UserService = (function () {
+    // Resolve HTTP using the constructor
     function UserService(http) {
         this.http = http;
+        // private instance variable to hold base url
+        this.usersUrl = 'http://localhost:8080/Projet_1_Blog/api/getallusers';
+        this.addUserUrl = 'http://localhost:8080/Projet_1_Blog/api/addUsers';
+        this.userUrl = 'http://localhost:8080/Projet_1_Blog/api/user';
     }
-    UserService.prototype.getAll = function () {
-        return this.http.get('http://localhost:8080/Projet_1_Blog/api/getallusers', this.jwt()).map(function (response) { return response.json(); });
+    // Fetch all existing users
+    UserService.prototype.getUsers = function () {
+        // ...using get request
+        return this.http.get(this.userUrl)
+            .map(function (res) { return res.json(); })
+            .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); });
+        //console.log(response);       
     };
-    UserService.prototype.getById = function (id) {
-        return this.http.get('/api/users/' + id, this.jwt()).map(function (response) { return response.json(); });
+    // Add a new user
+    UserService.prototype.addUser = function (body) {
+        var bodyString = JSON.stringify(body); // Stringify payload
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        var options = new http_1.RequestOptions({ headers: headers }); // Create a request option
+        return this.http.post(this.addUserUrl, body, options) // ...using post request
+            .map(function (res) { return res.json(); }) // ...and calling .json() on the response to return data
+            .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); }); //...errors if any
     };
-    UserService.prototype.create = function (user) {
-        return this.http.post('/api/users', user, this.jwt()).map(function (response) { return response.json(); });
+    // Update a user
+    UserService.prototype.updateUser = function (body) {
+        var bodyString = JSON.stringify(body); // Stringify payload
+        var headers = new http_1.Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        var options = new http_1.RequestOptions({ headers: headers }); // Create a request option
+        return this.http.put(this.usersUrl + "/" + body['id'], body, options) // ...using put request
+            .map(function (res) { return res.json(); }) // ...and calling .json() on the response to return data
+            .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); }); //...errors if any
     };
-    UserService.prototype.update = function (user) {
-        return this.http.put('/api/users/' + user.id, user, this.jwt()).map(function (response) { return response.json(); });
-    };
-    UserService.prototype.delete = function (id) {
-        return this.http.delete('/api/users/' + id, this.jwt()).map(function (response) { return response.json(); });
-    };
-    // private helper methods
-    UserService.prototype.jwt = function () {
-        // create authorization header with jwt token
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-        if (currentUser && currentUser.token) {
-            var headers = new http_1.Headers({ 'Authorization': 'Bearer ' + currentUser.token });
-            return new http_1.RequestOptions({ headers: headers });
-        }
+    // Delete a user
+    UserService.prototype.removeUser = function (id) {
+        return this.http.delete(this.usersUrl + "/" + id) // ...using put request
+            .map(function (res) { return res.json(); }) // ...and calling .json() on the response to return data
+            .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); }); //...errors if any
     };
     return UserService;
 }());

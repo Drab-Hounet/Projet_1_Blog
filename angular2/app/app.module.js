@@ -10,18 +10,13 @@ var core_1 = require("@angular/core");
 var platform_browser_1 = require("@angular/platform-browser");
 var forms_1 = require("@angular/forms");
 var http_1 = require("@angular/http");
-// used to create fake backend
-var index_1 = require("./_helpers/index");
-var testing_1 = require("@angular/http/testing");
-var http_2 = require("@angular/http");
 var app_component_1 = require("./app.component");
 var app_routing_1 = require("./app.routing");
-var index_2 = require("./_directives/index");
-var index_3 = require("./_guards/index");
-var index_4 = require("./_services/index");
-var index_5 = require("./home/index");
-var index_6 = require("./login/index");
-var index_7 = require("./register/index");
+var index_1 = require("./_directives/index");
+var index_2 = require("./_guards/index");
+var index_3 = require("./_services/index");
+var index_4 = require("./home/index");
+var index_5 = require("./login/index");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -37,20 +32,14 @@ AppModule = __decorate([
         ],
         declarations: [
             app_component_1.AppComponent,
-            index_2.AlertComponent,
-            index_5.HomeComponent,
-            index_6.LoginComponent,
-            index_7.RegisterComponent
+            index_1.AlertComponent,
+            index_4.HomeComponent,
+            index_5.LoginComponent
         ],
         providers: [
-            index_3.AuthGuard,
-            index_4.AlertService,
-            index_4.AuthenticationService,
-            index_4.UserService,
-            // providers used to create fake backend
-            index_1.fakeBackendProvider,
-            testing_1.MockBackend,
-            http_2.BaseRequestOptions
+            index_2.AuthGuard,
+            index_3.AlertService,
+            index_3.UserService,
         ],
         bootstrap: [app_component_1.AppComponent]
     })

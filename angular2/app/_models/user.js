@@ -1,7 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var User = (function () {
-    function User() {
+    function User(id, pseudo, email, password) {
+        this.id = id;
+        this.pseudo = pseudo;
+        this.email = email;
+        this.password = password;
     }
     return User;
 }());

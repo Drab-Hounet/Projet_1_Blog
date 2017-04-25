@@ -1,8 +1,8 @@
 ﻿export class User {
-    id: number;
-    pseudo: string;
-    tagAdmin: string;
-    email: string;
-    password: string;
-    createdAt: string;
-    }
+    constructor(
+        public id: String, 
+        public pseudo: String, 
+        public email: String,
+        public password : String
+        ){}
+}
