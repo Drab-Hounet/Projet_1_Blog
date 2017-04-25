@@ -21,7 +21,7 @@ public abstract class DAO<T> {
         this.connection = connection;
     }
     
-    public abstract String getAll() throws SQLException, ClassNotFoundException;
+    public abstract String getAllJson() throws SQLException, ClassNotFoundException;
     public abstract boolean create(Map<String, String> element);
 
 }

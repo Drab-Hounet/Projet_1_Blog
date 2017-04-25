@@ -33,7 +33,7 @@ public class DbBlogPosts extends DAO {
      * @throws ClassNotFoundException
      */
     @Override
-    public String getAll() throws SQLException, ClassNotFoundException {
+    public String getAllJson() throws SQLException, ClassNotFoundException {
         Statement statement = null;
         String selectTableSQL = "SELECT * from blogposts";
         HashMap<Integer, HashMap<String,String>> list = new HashMap<>();

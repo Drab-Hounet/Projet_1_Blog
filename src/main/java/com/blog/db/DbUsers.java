@@ -5,12 +5,14 @@
  */
 package com.blog.db;
 
+import com.blog.attributes.User;
 import com.blog.db.Singleton;
 import com.google.gson.Gson;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,18 +23,10 @@ public class DbUsers extends DAO{
     }
     
     @Override
-    public String getAll() throws ClassNotFoundException, SQLException{
-        Statement statement = null;
-        String selectTableSQL = "SELECT * from users";
-        HashMap<Integer, HashMap<String,String>> list = new HashMap<>();
-        
-        try {
-            statement = Singleton.getInstance().createStatement();
-            System.out.println(selectTableSQL);
-            // execute select SQL stetement
-            ResultSet rs = statement.executeQuery(selectTableSQL);
-
-            while (rs.next()) {
+    public String getAllJson() throws ClassNotFoundException, SQLException{
+        ArrayList<HashMap<String,String>> list = new ArrayList<>();
+        ResultSet rs = this.getResultSet();
+        while (rs.next()) {
                 HashMap<String,String> temp = new HashMap<>();
                 
                 String pseudo = rs.getString("pseudo");
@@ -43,21 +37,26 @@ public class DbUsers extends DAO{
                 temp.put("tagAdmin", tagAdmin);
                 String createdAt = rs.getString("created_at");
                 temp.put("createdAt", createdAt); 
-                String password = rs.getString("password");
-                temp.put("password", password); 
-                list.put(rs.getInt("id"),temp);
+                list.add(temp);
             }
-            System.out.println(list);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        } finally {
-            if (statement != null) {
-                statement.close();
-            }
-        }
         Gson gson = new Gson();
         String json = gson.toJson(list);
         return json;
+    }
+    
+    public ArrayList<User> getAllUsers() throws ClassNotFoundException, SQLException{
+        ArrayList listUser = new ArrayList();
+        ResultSet rs = this.getResultSet();
+        while (rs.next()) {
+            String pseudo = rs.getString("pseudo");
+            String email = rs.getString("email");
+            String password = rs.getString("password");
+            String tagAdmin = rs.getString("tag_admin");
+            String createdAt = rs.getString("created_at");
+            User user = new User(pseudo, password, email, tagAdmin, createdAt);
+            listUser.add(user);
+        }
+        return listUser;
     }
 
 
@@ -65,6 +64,23 @@ public class DbUsers extends DAO{
     public boolean create(Map element) {
         return true;
     }
+        
+    public ResultSet getResultSet() throws ClassNotFoundException, SQLException{
+        Statement statement = null;
+        String selectTableSQL = "SELECT * from users";
+        
+        ResultSet rs = null;
+        try {
+            statement = Singleton.getInstance().createStatement();
+            //System.out.println(selectTableSQL);
+            // execute select SQL stetement
+            rs = statement.executeQuery(selectTableSQL);
 
-
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } 
+        return rs;
+    }
+    
+    
 }

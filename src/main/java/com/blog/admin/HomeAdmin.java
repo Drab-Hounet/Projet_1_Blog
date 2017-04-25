@@ -5,8 +5,15 @@
  */
 package com.blog.admin;
 
+import com.blog.attributes.User;
+import com.blog.beans.CheckAuthentificateAdmin;
+import com.blog.db.DbUsers;
+import com.blog.db.Singleton;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -61,7 +68,34 @@ public class HomeAdmin extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
+        CheckAuthentificateAdmin checkAuthentificateAdmin = new CheckAuthentificateAdmin(
+                request.getParameter("login"),
+                request.getParameter("password"));
+        
+        User adminConnected = null;
+        
+        try {
+            adminConnected = checkAuthentificateAdmin.IsItAdmin();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(HomeAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        if (adminConnected.pseudo != null){
+            String stateConnected = "";
+            String displayMessageSucces = "hidden";
+            String displayMessageFail = "hidden";
+            request.setAttribute("stateConnected", stateConnected);
+            request.setAttribute("displayAlertSuccess", displayMessageSucces);
+            request.setAttribute("displayAlertFail", displayMessageFail);
+            request.setAttribute("adminConnected", adminConnected.pseudo);
+            this.getServletContext().getRequestDispatcher("/adminEditPost.jsp").forward(request, response); 
+        }else{
+            String stateErrorLogin = "";
+            request.setAttribute("stateErrorLogin", stateErrorLogin);
+            request.setAttribute("adminConnected", adminConnected.pseudo);
+            this.getServletContext().getRequestDispatcher("/adminHome.jsp").forward(request, response); 
+        }       
     }
 
     /**

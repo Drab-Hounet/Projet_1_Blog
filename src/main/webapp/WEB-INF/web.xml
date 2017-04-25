@@ -2,18 +2,28 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>apiGetAllUsers</servlet-name>
-        <servlet-class>com.blog.api.GetAllUsers</servlet-class>
+        <servlet-class>com.blog.api.ApiUsers</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>apiGetAllUsers</servlet-name>
         <url-pattern>/api/getallusers</url-pattern>
     </servlet-mapping>
+    
     <jsp-config>
         <jsp-property-group>
             <url-pattern>*.jsp</url-pattern>
             <include-prelude>./preludeJsp.jsp</include-prelude>
         </jsp-property-group>
     </jsp-config>
+    
+    <servlet>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>com.blog.admin.Logout</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/admin/logout</url-pattern>
+    </servlet-mapping>
     
     <servlet>
         <servlet-name>HomeAdmin</servlet-name>
@@ -25,18 +35,30 @@
     </servlet-mapping>
     
     <servlet>
-        <servlet-name>editAdmin</servlet-name>
+        <servlet-name>loginUser</servlet-name>
+        <servlet-class>com.blog.api.ApiUsers</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginUser</servlet-name>
+        <url-pattern>/api/user</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        
+    <servlet-name>editAdmin</servlet-name>
         <servlet-class>com.blog.admin.EditPostBlog</servlet-class>
-            <multipart-config>
-                <location>E:\_TRAVAIL\JAVA\_JEE\test</location>
-                <max-file-size>10485760</max-file-size> <!-- 10 Mo -->
-                <max-request-size>52428800</max-request-size> <!-- 5 x 10 Mo -->
-                <file-size-threshold>1048576</file-size-threshold> <!-- 1 Mo -->
-            </multipart-config>
+        <multipart-config>
+            <location>E:\_TRAVAIL\JAVA\_JEE\test</location>
+            <max-file-size>10485760</max-file-size>
+            <!-- 10 Mo -->
+            <max-request-size>52428800</max-request-size>
+            <!-- 5 x 10 Mo -->
+            <file-size-threshold>1048576</file-size-threshold>
+            <!-- 1 Mo -->
+        </multipart-config>
     </servlet>
     <servlet-mapping>
         <servlet-name>editAdmin</servlet-name>
         <url-pattern>/admin/edit</url-pattern>
     </servlet-mapping>
-
+    
 </web-app>

@@ -91,12 +91,7 @@ public class EditPostBlog extends HttpServlet {
             request.setAttribute("displayAlertFail", displayMessageFail);
             this.getServletContext().getRequestDispatcher("/adminEditPost.jsp").forward(request, response); 
         }
-        
-        
-        
-        //String title = request.getParameter("save");
-        //PrintWriter out = response.getWriter();
-        //out.print(title);
+
         
     }
 
