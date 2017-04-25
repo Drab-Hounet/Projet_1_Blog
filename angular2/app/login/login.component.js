@@ -28,17 +28,17 @@ var LoginComponent = (function () {
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     };
-    LoginComponent.prototype.authenticate = function (username, password) {
+    LoginComponent.prototype.authenticate = function (pseudo, password) {
         var _this = this;
-        var creds = JSON.stringify({ username: username, password: password });
+        var creds = JSON.stringify({ pseudo: pseudo.value, password: password.value });
         var headers = new http_1.Headers();
         headers.append('Content-Type', 'application/json');
         this.http.post('http://localhost:8080/Projet_1_Blog/api/user', creds, {
             headers: headers
         })
             .subscribe(function (data) {
-            _this.saveJwt(data.json().id_token);
-            username = null;
+            _this.saveJwt(data.json());
+            pseudo = null;
             password = null;
         }, function (err) { return _this.logError(err.json().message); }, function () { return console.log('Authentication Complete'); });
         console.log(this.data);

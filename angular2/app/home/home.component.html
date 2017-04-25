@@ -3,10 +3,10 @@
     <p>You've been logged</p>
     <h3>All registered users:</h3>
     <ul>
-        <!--<li *ngFor="let user of users">
-            ({{user.id}} {{user.email}} {{user.password}})
+        <li *ngFor="let user of users">
+            {{user.pseudo}} {{user.email}}
             - <a (click)="deleteUser(user.id)">Delete</a>
-        </li>-->{{users}}
+        </li>
     </ul>
     <p><a [routerLink]="['/login']">Logout</a></p>
 </div>

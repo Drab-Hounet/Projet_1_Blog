@@ -28,10 +28,9 @@ export class LoginComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     }
 
-    authenticate(username: string, password: string) {
+    authenticate(pseudo, password) {
 
-    let creds = JSON.stringify({ username: username, password: password });
-
+    let creds = JSON.stringify({ pseudo: pseudo.value, password: password.value });
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
@@ -40,8 +39,8 @@ export class LoginComponent implements OnInit {
       })
       .subscribe(
         data => {
-          this.saveJwt(data.json().id_token);
-          username = null;
+          this.saveJwt(data.json());
+          pseudo = null;
           password = null;
         },
         err => this.logError(err.json().message),
