@@ -17,7 +17,7 @@ import java.sql.SQLException;
 public class Singleton {
     private static String url = "jdbc:mysql://localhost:3306/blog?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private static String user = "root";
-    private static String passwd = "";
+    private static String passwd = "root";
     private static Connection connect;
    
   

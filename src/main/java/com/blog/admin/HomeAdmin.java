@@ -5,6 +5,7 @@
  */
 package com.blog.admin;
 
+import com.blog.attributes.User;
 import com.blog.beans.CheckAuthentificateAdmin;
 import com.blog.db.DbUsers;
 import com.blog.db.Singleton;
@@ -72,32 +73,29 @@ public class HomeAdmin extends HttpServlet {
                 request.getParameter("login"),
                 request.getParameter("password"));
         
-        boolean AuthentificateSuccess = false;
+        User adminConnected = null;
         
         try {
-            AuthentificateSuccess = checkAuthentificateAdmin.IsItAdmin();
+            adminConnected = checkAuthentificateAdmin.IsItAdmin();
         } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(HomeAdmin.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        if (AuthentificateSuccess){
+        if (adminConnected.pseudo != null){
             String stateConnected = "";
             String displayMessageSucces = "hidden";
             String displayMessageFail = "hidden";
             request.setAttribute("stateConnected", stateConnected);
             request.setAttribute("displayAlertSuccess", displayMessageSucces);
             request.setAttribute("displayAlertFail", displayMessageFail);
+            request.setAttribute("adminConnected", adminConnected.pseudo);
             this.getServletContext().getRequestDispatcher("/adminEditPost.jsp").forward(request, response); 
         }else{
+            String stateErrorLogin = "";
+            request.setAttribute("stateErrorLogin", stateErrorLogin);
+            request.setAttribute("adminConnected", adminConnected.pseudo);
             this.getServletContext().getRequestDispatcher("/adminHome.jsp").forward(request, response); 
-        }
-        
-        
-        
-        
-
-        
-        
+        }       
     }
 
     /**

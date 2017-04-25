@@ -7,6 +7,11 @@
         <title>Blog Codeus Papam</title>
     </head>
     <body>
+        
+        <c:if test="${not empty pseudo}">
+            <c:redirect url="/admin/edit"/>
+        </c:if>
+
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="navbar-header">
                 <a class="navbar-brand" href="<c:url value="/admin/accueil"/>">Blog Codeus Papam</a>
@@ -16,7 +21,16 @@
         <form method="post" class="form-horizontal">
             <fieldset>
                 
-            <h1 class="col-md-10 col-md-offset-1">Login</h1>
+         
+            <div class="col-md-4 col-md-offset-1">
+                    <h1>Login</h1>
+                </div>
+                <div class="col-md-2 col-md-offset-5 <c:out value="${stateErrorLogin}" default = "hidden"/>">
+                    <div class="alert alert-danger">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close">x</a>
+                        <strong>Accés non autorisé!</strong>
+                    </div>
+                </div>
 
             <!-- Login input-->
             <div class="form-group">

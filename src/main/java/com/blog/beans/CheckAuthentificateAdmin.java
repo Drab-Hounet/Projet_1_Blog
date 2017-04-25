@@ -10,7 +10,6 @@ import com.blog.db.DbUsers;
 import com.blog.db.Singleton;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 /**
@@ -26,19 +25,21 @@ public class CheckAuthentificateAdmin {
         this.password = password;
     }
     
-    public boolean IsItAdmin() throws ClassNotFoundException, SQLException{       
+    public User IsItAdmin() throws ClassNotFoundException, SQLException{       
         try { 
             DbUsers getUsers = new DbUsers(Singleton.getInstance());
             ArrayList<User> listAllUsers = getUsers.getAllUsers();
             
             for (User user : listAllUsers){
-               if((((user.email.equals(this.login)) || (user.name.equals(this.login)))) && (user.password.equals(this.password))){
-                   return true;
+               if((((user.email.equals(this.login)) || (user.pseudo.equals(this.login)))) 
+                       && (user.password.equals(this.password)) && (user.tagAdmin.equals("admin"))){
+                   return user;
                }
             }  
         } catch (ClassNotFoundException | SQLException ex) {
             System.out.println(ex);
         }
-        return false;
+        return new User();
     }   
+    
 }

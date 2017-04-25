@@ -16,6 +16,15 @@
     </jsp-config>
     
     <servlet>
+        <servlet-name>logout</servlet-name>
+        <servlet-class>com.blog.admin.Logout</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>logout</servlet-name>
+        <url-pattern>/admin/logout</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
         <servlet-name>HomeAdmin</servlet-name>
         <servlet-class>com.blog.admin.HomeAdmin</servlet-class>
     </servlet>

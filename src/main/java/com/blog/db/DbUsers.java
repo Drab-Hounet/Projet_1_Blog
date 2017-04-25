@@ -24,7 +24,7 @@ public class DbUsers extends DAO{
     
     @Override
     public String getAllJson() throws ClassNotFoundException, SQLException{
-        HashMap<Integer, HashMap<String,String>> list = new HashMap<>();
+        ArrayList<HashMap<String,String>> list = new ArrayList<>();
         ResultSet rs = this.getResultSet();
         while (rs.next()) {
                 HashMap<String,String> temp = new HashMap<>();
@@ -39,7 +39,7 @@ public class DbUsers extends DAO{
                 temp.put("createdAt", createdAt); 
                 String password = rs.getString("password");
                 temp.put("password", password); 
-                list.put(rs.getInt("id"),temp);
+                list.add(temp);
             }
         Gson gson = new Gson();
         String json = gson.toJson(list);
