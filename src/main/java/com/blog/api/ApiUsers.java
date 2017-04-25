@@ -25,7 +25,7 @@ import java.util.logging.Logger;
  * @author jerome.lombard
  */
 @WebServlet(name = "ApiTest", urlPatterns = {"/ApiTest"})
-public class GetAllUsers extends HttpServlet {
+public class ApiUsers extends HttpServlet {
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -34,7 +34,7 @@ public class GetAllUsers extends HttpServlet {
         try {
             user = new DbUsers(Singleton.getInstance());
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(GetAllUsers.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ApiUsers.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             listUsers = user.getAllJson();
@@ -45,6 +45,15 @@ public class GetAllUsers extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         out.print(listUsers);
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String data = request.getParameter("data");
+        PrintWriter out = response.getWriter();
+        out.print(data);
+        
     }
 
 

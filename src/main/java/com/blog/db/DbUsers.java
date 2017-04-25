@@ -37,8 +37,6 @@ public class DbUsers extends DAO{
                 temp.put("tagAdmin", tagAdmin);
                 String createdAt = rs.getString("created_at");
                 temp.put("createdAt", createdAt); 
-                String password = rs.getString("password");
-                temp.put("password", password); 
                 list.add(temp);
             }
         Gson gson = new Gson();
@@ -83,4 +81,6 @@ public class DbUsers extends DAO{
         } 
         return rs;
     }
+    
+    
 }
