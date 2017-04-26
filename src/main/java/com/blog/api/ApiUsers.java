@@ -62,7 +62,6 @@ public class ApiUsers extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String data = request.getParameter("data");
         PrintWriter out = response.getWriter();
         out.print(data);

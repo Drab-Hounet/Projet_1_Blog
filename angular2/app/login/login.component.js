@@ -14,6 +14,7 @@ var router_1 = require("@angular/router");
 var http_1 = require("@angular/http");
 var index_1 = require("../_services/index");
 var index_2 = require("../_services/index");
+var Rx_1 = require("rxjs/Rx");
 var LoginComponent = (function () {
     function LoginComponent(route, router, alertService, userService, http) {
         this.route = route;
@@ -29,16 +30,18 @@ var LoginComponent = (function () {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     };
     LoginComponent.prototype.authenticate = function (pseudo, password) {
-        var data = JSON.stringify({ pseudo: pseudo.value, password: password.value });
+        var urlSearchParams = new URLSearchParams();
+        urlSearchParams.set('data', JSON.stringify({ pseudo: pseudo.value, password: password.value }));
         var headers = new http_1.Headers();
-        headers.append('Content-Type', 'application/json');
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
         headers.append('Access-Control-Allow-Methods', 'POST');
         headers.append('Access-Control-Allow-Origin', '*');
-        var options = new http_1.RequestOptions({ headers: headers, withCredentials: true });
-        console.log(data);
-        this.http.post('http://localhost:8080/Projet_1_Blog/api/user', data, options).map(function (res) { return res.json(); })
+        var options = new http_1.RequestOptions({ headers: headers });
+        console.log(urlSearchParams.toString());
+        this.http.post('http://localhost:8080/Projet_1_Blog/api/user', urlSearchParams.toString(), options).map(function (res) { return res.json(); })
+            .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); })
             .subscribe(function (response) {
-            console.log(response);
+            console.log({ response: response });
         });
     };
     return LoginComponent;
