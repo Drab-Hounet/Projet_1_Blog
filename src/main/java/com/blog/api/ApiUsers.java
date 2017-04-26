@@ -19,6 +19,10 @@ import com.google.gson.Gson;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import static javax.ws.rs.HttpMethod.*;
+import javax.ws.rs.OPTIONS;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.*;
 
 /**
  *
@@ -26,6 +30,15 @@ import java.util.logging.Logger;
  */
 @WebServlet(name = "ApiTest", urlPatterns = {"/ApiTest"})
 public class ApiUsers extends HttpServlet {
+    
+    @OPTIONS
+    @Path("/api/user")
+    public Response getOptions() {
+        return Response.ok()
+        .header("Access-Control-Allow-Origin", "*")
+        .header("Access-Control-Allow-Methods", "POST, GET, PUT, UPDATE, OPTIONS")
+        .header("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With").build();
+  }
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
