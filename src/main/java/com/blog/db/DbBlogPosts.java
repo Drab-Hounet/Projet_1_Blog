@@ -5,14 +5,16 @@
  */
 package com.blog.db;
 
+import com.blog.attributes.BlogPost;
+import java.sql.PreparedStatement;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import com.google.gson.Gson;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,6 +72,22 @@ public class DbBlogPosts extends DAO {
         Gson gson = new Gson();
         String json = gson.toJson(list);
         return json;       
+    }
+    
+        public ArrayList<BlogPost> getAllBlogPost() throws ClassNotFoundException, SQLException{
+        ArrayList listBlogPost = new ArrayList();
+        ResultSet rs;
+        rs = this.getResultSet();
+        while (rs.next()) {
+            String title = rs.getString("title");
+            String content = rs.getString("content");
+            String picture = rs.getString("picture");
+            String createdAt = rs.getString("created_at");
+            String updatedAt = rs.getString("updated_at");
+            BlogPost blogPost = new BlogPost(title, content, picture, createdAt, updatedAt);
+            listBlogPost.add(blogPost);
+        }
+        return listBlogPost;
     }
 
     @Override

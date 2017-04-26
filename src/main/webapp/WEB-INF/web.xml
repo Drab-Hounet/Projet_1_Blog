@@ -43,7 +43,14 @@
         <url-pattern>/api/user</url-pattern>
     </servlet-mapping>
     <servlet>
-        
+        <servlet-name>billets</servlet-name>
+        <servlet-class>com.blog.api.ApiBillets</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>billets</servlet-name>
+        <url-pattern>/api/billets</url-pattern>
+    </servlet-mapping>    
+    <servlet>    
     <servlet-name>editAdmin</servlet-name>
         <servlet-class>com.blog.admin.EditPostBlog</servlet-class>
         <multipart-config>

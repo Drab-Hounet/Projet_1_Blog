@@ -1,7 +1,8 @@
 ﻿import { Component, OnInit } from '@angular/core';
 
-import { User } from '../_models/index';
 import { UserService } from '../_services/index';
+import { Billet } from '../_models/index';
+import { KeysPipe } from '../_models/index';
 
 @Component({
     moduleId: module.id,
@@ -9,10 +10,22 @@ import { UserService } from '../_services/index';
 })
 
 export class BlogPostComponent implements OnInit {
+    billets: Billet[];
 
-    constructor() {
+        constructor(
+        private userService: UserService) { }
+
+        ngOnInit() {
+        this.loadAllPost();
     }
 
-    ngOnInit() {
+        private loadAllPost() {
+        this.userService.getBlogPost().subscribe(billets => { 
+            
+            this.billets = billets; 
+            console.log(billets);
+        });
+        
     }
+    
 }

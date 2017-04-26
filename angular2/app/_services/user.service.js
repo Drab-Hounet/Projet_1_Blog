@@ -23,11 +23,20 @@ var UserService = (function () {
         this.usersUrl = 'http://localhost:8080/Projet_1_Blog/api/getallusers';
         this.addUserUrl = 'http://localhost:8080/Projet_1_Blog/api/addUsers';
         this.userUrl = 'http://localhost:8080/Projet_1_Blog/api/user';
+        this.billetUrl = 'http://localhost:8080/Projet_1_Blog/api/billets';
     }
     // Fetch all existing users
     UserService.prototype.getUsers = function () {
         // ...using get request
         return this.http.get(this.usersUrl)
+            .map(function (res) { return res.json(); })
+            .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); });
+        //console.log(response);       
+    };
+    // Fetch all existing users
+    UserService.prototype.getBlogPost = function () {
+        // ...using get request
+        return this.http.get(this.billetUrl)
             .map(function (res) { return res.json(); })
             .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); });
         //console.log(response);       

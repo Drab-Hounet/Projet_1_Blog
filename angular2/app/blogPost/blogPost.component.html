@@ -1,1 +1,13 @@
-<h1>Test</h1>
+<div class="col-md-6 col-md-offset-3">
+    <h1>What's news!</h1>
+    <h3>All registered blogPosts:</h3>
+    <ul>
+        <li *ngFor="let billet of billets.children">
+            {{billet}}
+            <!--<h3>{{billet.title}}</h3>
+            <p>{{billet.content}}</p>
+            <p>{{billet.picture}}</p>
+            <h6>{{billet.createdAt}}{{billet.updatedAt}}</h6>-->
+        </li>
+    </ul>
+</div>

@@ -1,5 +1,6 @@
 ﻿import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { User }           from '../_models/user';
+import { Billet }           from '../_models/billet';
 import { Injectable }     from '@angular/core';
 import {Observable} from 'rxjs/Rx';
 
@@ -15,6 +16,7 @@ export class UserService {
      private usersUrl = 'http://localhost:8080/Projet_1_Blog/api/getallusers';
      private addUserUrl = 'http://localhost:8080/Projet_1_Blog/api/addUsers';
      private userUrl = 'http://localhost:8080/Projet_1_Blog/api/user';
+     private billetUrl = 'http://localhost:8080/Projet_1_Blog/api/billets';
      
      // Fetch all existing users
      getUsers() : Observable<User[]>{
@@ -26,6 +28,18 @@ export class UserService {
                          .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
                          //console.log(response);       
      }
+
+          // Fetch all existing users
+     getBlogPost() : Observable<Billet[]>{
+         // ...using get request
+         return this.http.get(this.billetUrl)
+                        // ...and calling .json() on the response to return data
+                         .map((res:Response) => res.json())
+                         //...errors if any
+                         .catch((error:any) => Observable.throw(error.json().error || 'Server error'));
+                         //console.log(response);       
+     }
+     
 
      // Add a new user
     addUser (body: Object): Observable<User[]> {
