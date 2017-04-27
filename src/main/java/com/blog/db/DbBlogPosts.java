@@ -120,7 +120,7 @@ public class DbBlogPosts extends DAO {
         try {
             statement = Singleton.getInstance().createStatement();
             //System.out.println(selectTableSQL);
-            // execute select SQL stetement
+            //execute select SQL stetement
             rs = statement.executeQuery(selectTableSQL);
 
         } catch (SQLException e) {
