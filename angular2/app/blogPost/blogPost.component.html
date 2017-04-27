@@ -2,12 +2,11 @@
     <h1>What's news!</h1>
     <h3>All registered blogPosts:</h3>
     <ul>
-        <li *ngFor="let billet of billets.children">
-            {{billet}}
-            <!--<h3>{{billet.title}}</h3>
+        <div *ngFor="let billet of billets | keys">
+            <strong><h3>{{billet.titre}}</h3></strong>
             <p>{{billet.content}}</p>
             <p>{{billet.picture}}</p>
-            <h6>{{billet.createdAt}}{{billet.updatedAt}}</h6>-->
-        </li>
+            <h6>{{billet.created_At}}{{billet.updates_at}}</h6>
+        </div>
     </ul>
 </div>

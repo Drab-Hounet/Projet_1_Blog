@@ -76,8 +76,7 @@ public class DbBlogPosts extends DAO {
     
         public ArrayList<BlogPost> getAllBlogPost() throws ClassNotFoundException, SQLException{
         ArrayList listBlogPost = new ArrayList();
-        ResultSet rs;
-        rs = this.getResultSet();
+        ResultSet rs = this.getResultSet();
         while (rs.next()) {
             String title = rs.getString("title");
             String content = rs.getString("content");
@@ -113,5 +112,20 @@ public class DbBlogPosts extends DAO {
         return true;
     }
     
-    
+    public ResultSet getResultSet() throws ClassNotFoundException, SQLException{
+        Statement statement = null;
+        String selectTableSQL = "SELECT * from blogposts";
+        
+        ResultSet rs = null;
+        try {
+            statement = Singleton.getInstance().createStatement();
+            //System.out.println(selectTableSQL);
+            // execute select SQL stetement
+            rs = statement.executeQuery(selectTableSQL);
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        } 
+        return rs;
+    }
 }

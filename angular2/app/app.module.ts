@@ -12,6 +12,8 @@ import { AlertService, UserService } from './_services/index';
 import { HomeComponent } from './home/index';
 import { LoginComponent } from './login/index';
 import { BlogPostComponent } from './blogPost/index';
+import { RegisterComponent } from './register/index';
+import { KeysPipe } from './_helpers/pipe';
 
 @NgModule({
     imports: [
@@ -26,6 +28,9 @@ import { BlogPostComponent } from './blogPost/index';
         HomeComponent,
         LoginComponent,
         BlogPostComponent,
+        RegisterComponent,
+        KeysPipe,
+
     ],
     providers: [
         AuthGuard,

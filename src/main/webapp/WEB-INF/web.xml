@@ -35,12 +35,28 @@
     </servlet-mapping>
     
     <servlet>
+        <servlet-name>BlogPostAdmin</servlet-name>
+        <servlet-class>com.blog.admin.HomeAdmin</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>HomeAdmin</servlet-name>
+        <url-pattern>/admin/wall</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <servlet-name>loginUser</servlet-name>
         <servlet-class>com.blog.api.ApiUsers</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>loginUser</servlet-name>
         <url-pattern>/api/user</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>addUser</servlet-name>
+        <servlet-class>com.blog.api.ApiUsers</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addUser</servlet-name>
+        <url-pattern>/api/addUser</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>billets</servlet-name>

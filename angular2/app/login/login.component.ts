@@ -33,18 +33,21 @@ export class LoginComponent implements OnInit {
 
     authenticate(pseudo, password) {
 
-    let urlSearchParams = new URLSearchParams();
-        urlSearchParams.set('data', JSON.stringify({ pseudo: pseudo.value, password: password.value }));
-    let headers = new Headers();
-    headers.append('Content-Type', 'application/x-www-form-urlencoded');
-    headers.append('Access-Control-Allow-Methods', 'POST');
-    headers.append('Access-Control-Allow-Origin', '*');
-    let options = new RequestOptions({ headers: headers });
-    console.log(urlSearchParams.toString());
-   this.http.post('http://localhost:8080/Projet_1_Blog/api/user', urlSearchParams.toString() , options).map(res => res.json())
-    .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
-    .subscribe(response => {
-        console.log({response});
-    });
+        let urlSearchParams = new URLSearchParams();
+            urlSearchParams.set('data', JSON.stringify({ pseudo: pseudo.value, password: password.value }));
+        let headers = new Headers();
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('Access-Control-Allow-Methods', 'POST');
+        headers.append('Access-Control-Allow-Origin', '*');
+        let options = new RequestOptions({ headers: headers });
+        console.log(urlSearchParams.toString());
+        this.http.post('http://localhost:8080/Projet_1_Blog/api/user', urlSearchParams.toString() , options).map(res => res.json())
+        .catch((error:any) => Observable.throw(error.json().error || 'Server error'))
+        .subscribe(response => {
+            console.log({response},);
+        },
+        error => {
+            this.alertService.error(error);
+        });
     }
 }

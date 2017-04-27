@@ -6,13 +6,15 @@
 package com.blog.db;
 
 import com.blog.attributes.User;
-import com.blog.db.Singleton;
 import com.google.gson.Gson;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -82,5 +84,25 @@ public class DbUsers extends DAO{
         return rs;
     }
     
-    
+    public void addUser() {
+        
+        Date dt = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String currentTime = sdf.format(dt);
+        String query =   "INSERT INTO users (pseudo, email, password, tag_admin, created_at) VALUES(?, ?, ?, ?, ?)";
+        
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, ("pseudo"));
+            preparedStatement.setString(2, ("email"));
+            preparedStatement.setString(3, ("password"));
+            preparedStatement.setString(4, "user");
+            preparedStatement.setString(5, currentTime);         
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException ex) {
+     
+        }
+        
+    } 
 }

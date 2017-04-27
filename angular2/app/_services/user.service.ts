@@ -14,7 +14,7 @@ export class UserService {
      constructor (private http: Http) {}
      // private instance variable to hold base url
      private usersUrl = 'http://localhost:8080/Projet_1_Blog/api/getallusers';
-     private addUserUrl = 'http://localhost:8080/Projet_1_Blog/api/addUsers';
+     private addUserUrl = 'http://localhost:8080/Projet_1_Blog/api/addUser';
      private userUrl = 'http://localhost:8080/Projet_1_Blog/api/user';
      private billetUrl = 'http://localhost:8080/Projet_1_Blog/api/billets';
      
@@ -42,12 +42,15 @@ export class UserService {
      
 
      // Add a new user
-    addUser (body: Object): Observable<User[]> {
-        let bodyString = JSON.stringify(body); // Stringify payload
+    addUser (data: Object): Observable<User[]> {
+        let bodyString = JSON.stringify(data); // Stringify payload
         let headers = new Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('Access-Control-Allow-Methods', 'POST');
+        headers.append('Access-Control-Allow-Origin', '*');
         let options = new RequestOptions({ headers: headers }); // Create a request option
 
-        return this.http.post(this.addUserUrl, body, options) // ...using post request
+        return this.http.post(this.addUserUrl, data, options) // ...using post request
                          .map((res:Response) => res.json()) // ...and calling .json() on the response to return data
                          .catch((error:any) => Observable.throw(error.json().error || 'Server error')); //...errors if any
     }   

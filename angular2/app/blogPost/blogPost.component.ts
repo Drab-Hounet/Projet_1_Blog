@@ -2,7 +2,7 @@
 
 import { UserService } from '../_services/index';
 import { Billet } from '../_models/index';
-import { KeysPipe } from '../_models/index';
+import { KeysPipe } from '../_helpers/pipe';
 
 @Component({
     moduleId: module.id,
@@ -12,20 +12,20 @@ import { KeysPipe } from '../_models/index';
 export class BlogPostComponent implements OnInit {
     billets: Billet[];
 
-        constructor(
-        private userService: UserService) { }
+    constructor( private userService: UserService) { }
 
-        ngOnInit() {
+    ngOnInit() {
         this.loadAllPost();
     }
 
-        private loadAllPost() {
-        this.userService.getBlogPost().subscribe(billets => { 
-            
-            this.billets = billets; 
+    private loadAllPost() {
+        this.userService.getBlogPost().subscribe(billets => {    
             console.log(billets);
+            //This a solution to not make a pipe
+            // const tab = Object.keys(billets).map(Key => billets[Key]);
+            // console.log(tab);
+            this.billets = billets;
         });
-        
     }
     
 }

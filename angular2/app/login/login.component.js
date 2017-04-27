@@ -30,6 +30,7 @@ var LoginComponent = (function () {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
     };
     LoginComponent.prototype.authenticate = function (pseudo, password) {
+        var _this = this;
         var urlSearchParams = new URLSearchParams();
         urlSearchParams.set('data', JSON.stringify({ pseudo: pseudo.value, password: password.value }));
         var headers = new http_1.Headers();
@@ -42,6 +43,8 @@ var LoginComponent = (function () {
             .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); })
             .subscribe(function (response) {
             console.log({ response: response });
+        }, function (error) {
+            _this.alertService.error(error);
         });
     };
     return LoginComponent;

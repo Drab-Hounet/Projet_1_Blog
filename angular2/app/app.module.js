@@ -18,6 +18,8 @@ var index_3 = require("./_services/index");
 var index_4 = require("./home/index");
 var index_5 = require("./login/index");
 var index_6 = require("./blogPost/index");
+var index_7 = require("./register/index");
+var pipe_1 = require("./_helpers/pipe");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -37,6 +39,8 @@ AppModule = __decorate([
             index_4.HomeComponent,
             index_5.LoginComponent,
             index_6.BlogPostComponent,
+            index_7.RegisterComponent,
+            pipe_1.KeysPipe,
         ],
         providers: [
             index_2.AuthGuard,

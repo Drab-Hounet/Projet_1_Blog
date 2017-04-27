@@ -21,7 +21,7 @@ var UserService = (function () {
         this.http = http;
         // private instance variable to hold base url
         this.usersUrl = 'http://localhost:8080/Projet_1_Blog/api/getallusers';
-        this.addUserUrl = 'http://localhost:8080/Projet_1_Blog/api/addUsers';
+        this.addUserUrl = 'http://localhost:8080/Projet_1_Blog/api/addUser';
         this.userUrl = 'http://localhost:8080/Projet_1_Blog/api/user';
         this.billetUrl = 'http://localhost:8080/Projet_1_Blog/api/billets';
     }
@@ -42,11 +42,14 @@ var UserService = (function () {
         //console.log(response);       
     };
     // Add a new user
-    UserService.prototype.addUser = function (body) {
-        var bodyString = JSON.stringify(body); // Stringify payload
+    UserService.prototype.addUser = function (data) {
+        var bodyString = JSON.stringify(data); // Stringify payload
         var headers = new http_1.Headers({ 'Content-Type': 'application/json' }); // ... Set content type to JSON
+        headers.append('Content-Type', 'application/x-www-form-urlencoded');
+        headers.append('Access-Control-Allow-Methods', 'POST');
+        headers.append('Access-Control-Allow-Origin', '*');
         var options = new http_1.RequestOptions({ headers: headers }); // Create a request option
-        return this.http.post(this.addUserUrl, body, options) // ...using post request
+        return this.http.post(this.addUserUrl, data, options) // ...using post request
             .map(function (res) { return res.json(); }) // ...and calling .json() on the response to return data
             .catch(function (error) { return Rx_1.Observable.throw(error.json().error || 'Server error'); }); //...errors if any
     };
