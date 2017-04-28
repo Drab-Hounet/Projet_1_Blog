@@ -1,0 +1,11 @@
+{
+  "REGISTER": {
+    "TITLE": "Hello and welcome to the registration's page of CodeusPapam !",
+    "SELECT": "Change language",
+    "ALIAS": "Alias",
+    "EMAIL": "Email",
+    "PASSWORD": "Password",
+    "VALIDATION": "Register",
+    "CANCEL": "Cancel"
+  }
+}

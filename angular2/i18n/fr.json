@@ -1,0 +1,11 @@
+{
+  "REGISTER": {
+    "TITLE": "Bonjour et bienvenue sur la page d'inscription de CodeusPapam !",
+    "SELECT": "Changer la langue",
+    "ALIAS": "Pseudo",
+    "EMAIL": "Adresse electronique",
+    "PASSWORD": "Mot de passe",
+    "VALIDATION": "Inscription",
+    "CANCEL": "Annuler"
+  }
+}

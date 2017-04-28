@@ -20,6 +20,12 @@ var index_5 = require("./login/index");
 var index_6 = require("./blogPost/index");
 var index_7 = require("./register/index");
 var pipe_1 = require("./_helpers/pipe");
+var core_2 = require("@ngx-translate/core");
+var http_loader_1 = require("@ngx-translate/http-loader");
+function HttpLoaderFactory(http) {
+    return new http_loader_1.TranslateHttpLoader(http, "i18n/", ".json");
+}
+exports.HttpLoaderFactory = HttpLoaderFactory;
 var AppModule = (function () {
     function AppModule() {
     }
@@ -31,7 +37,14 @@ AppModule = __decorate([
             platform_browser_1.BrowserModule,
             forms_1.FormsModule,
             http_1.HttpModule,
-            app_routing_1.routing
+            app_routing_1.routing,
+            core_2.TranslateModule.forRoot({
+                loader: {
+                    provide: core_2.TranslateLoader,
+                    useFactory: HttpLoaderFactory,
+                    deps: [http_1.Http]
+                }
+            })
         ],
         declarations: [
             app_component_1.AppComponent,
@@ -40,12 +53,12 @@ AppModule = __decorate([
             index_5.LoginComponent,
             index_6.BlogPostComponent,
             index_7.RegisterComponent,
-            pipe_1.KeysPipe,
+            pipe_1.KeysPipe
         ],
         providers: [
             index_2.AuthGuard,
             index_3.AlertService,
-            index_3.UserService,
+            index_3.UserService
         ],
         bootstrap: [app_component_1.AppComponent]
     })

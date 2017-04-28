@@ -5,6 +5,7 @@ import { Http, Response, Headers, RequestOptions } from '@angular/http';
 import { AlertService } from '../_services/index';
 import { UserService } from '../_services/index';
 import {Observable} from 'rxjs/Rx';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
     moduleId: module.id,
@@ -21,7 +22,16 @@ export class RegisterComponent {
     constructor(
         private router: Router,
         private userService: UserService,
-        private alertService: AlertService) { }
+        private alertService: AlertService,
+        private translate: TranslateService) { 
+
+        translate.addLangs(["en", "fr", "es"]);
+        translate.setDefaultLang('en');
+
+        let browserLang = translate.getBrowserLang();
+        translate.use(browserLang.match(/en|fr|es/) ? browserLang : 'en');
+
+        }
 
     register(pseudo, email, password) {
         this.loading = true;
